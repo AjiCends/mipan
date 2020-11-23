@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdEoqController extends Controller
 {
@@ -13,7 +14,19 @@ class AdEoqController extends Controller
      */
     public function index()
     {
-        return view('admin\eoq');
+      //mengambil data dari json
+      $json = Storage::get('public/order_cost.json');
+      $oc = json_decode($json, true);
+      //diurutkan dari yang terbaru
+      rsort($oc);
+
+      //mengambil data dari json
+      $json = Storage::get('public/carrying_cost.json');
+      $cc = json_decode($json, true);
+      //diurutkan dari yang terbaru
+      rsort($cc);
+
+      return view('admin\eoq',compact('oc','cc'));
     }
 
     /**

@@ -11,15 +11,15 @@
     <!-- Cretae OC Form -->
     <div class="container">
       <br />
-      <h3>Order Cost</h3>
+      <h3>Carrying Cost</h3>
       <br />
       <div class="table-responsive">
-      <form action="{{route('order_cost/create')}}" method="post" id="dynamic_form">
+      <form action="{{route('carrying_cost/create')}}" method="post" id="dynamic_form">
         @csrf
         <!-- input nama order cost -->
         <div class="form-group">
-            <label for="namaoc">Nama Order Cost</label>
-            <input type="text" class="form-control" id="namaoc" name="namaoc">
+          <label for="namacc">Nama Carrying Cost</label>
+          <input type="text" class="form-control" id="namacc" name="namacc">
         </div>
         <!-- input interval -->
         <div class="form-group">
@@ -57,7 +57,7 @@
     </div>
 
     <!-- Daftar Order Cost-->
-    <h3 class="mt-5">Daftar Order Cost</h3>
+    <h3 class="mt-5">Daftar Carrying Cost</h3>
 
     <!-- card order cost -->
     <!-- looping json -->
@@ -66,10 +66,10 @@
       @foreach ($data as $data)
       <div class="col mb-4">
         <div class="card">
-          <div class="card-header bg-info text-white">
+          <div class="card-header bg-warning text-dark">
             {{$data['title']}}
-            <a href="{{route('order_cost/destroy', $data['id'])}}" style="text-decoration:none">
-              <i class="fas fa-trash float-right text-white"></i>
+            <a href="{{route('carrying_cost/destroy', $data['id'])}}" style="text-decoration:none">
+              <i class="fas fa-trash float-right text-dark"></i>
             </a>
           </div>
           <ul class="list-group list-group-flush">

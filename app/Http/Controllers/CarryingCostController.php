@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class OrderCostController extends Controller
+class CarryingCostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +15,12 @@ class OrderCostController extends Controller
     public function index()
     {
       //mengambil data dari json
-      $json = Storage::get('public/order_cost.json');
+      $json = Storage::get('public/carrying_cost.json');
       $data = json_decode($json, true);
       //diurutkan dari yang terbaru
       rsort($data);
 
-      return view('admin.order_cost', compact('data'));
+      return view('admin.carrying_cost', compact('data'));
     }
 
     /**
@@ -31,7 +31,7 @@ class OrderCostController extends Controller
     public function create(Request $request)
     {
       //mengambil seua data file json
-      $json = Storage::get('public/order_cost.json');
+      $json = Storage::get('public/carrying_cost.json');
       $data = json_decode($json, true);
 
       //mengambil array id terakhir
@@ -40,7 +40,7 @@ class OrderCostController extends Controller
       $idlist = $endid+1;
 
       //menangkap inputan dari request
-      $namaoc = $request['namaoc'];
+      $namacc = $request['namacc'];
       $interval = $request['interval'];
       $kegiatan = $request['kegiatan'];
       $ongkos = $request['ongkos'];
@@ -49,7 +49,7 @@ class OrderCostController extends Controller
 
       //merubah inputan ke bentuk array
       $push['id']=$idlist;
-      $push['title']=$namaoc;
+      $push['title']=$namacc;
       $push['interval']=$interval;
       for ($i=0; $i < $arcount; $i++){
       $push['value'][]= array(
@@ -63,10 +63,10 @@ class OrderCostController extends Controller
 
       //push json
       $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
-      $file = Storage::put("public/order_cost.json", $jsonfile, LOCK_EX);
+      $file = Storage::put("public/carrying_cost.json", $jsonfile, LOCK_EX);
 
       //kembali ke view oc
-      return redirect(route('order_cost'));
+      return redirect(route('carrying_cost'));
     }
 
     /**
@@ -77,7 +77,7 @@ class OrderCostController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -111,7 +111,7 @@ class OrderCostController extends Controller
      */
     public function update(Request $request, $id)
     {
-      //
+        //
     }
 
     /**
@@ -122,14 +122,14 @@ class OrderCostController extends Controller
      */
     public function destroy($id)
     {
-      $json = Storage::get('public/order_cost.json');
+      $json = Storage::get('public/carrying_cost.json');
       $data = json_decode($json, true);
       unset($data[$id-1]);
 
       $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
-      $file = Storage::put("public/order_cost.json", $jsonfile);
+      $file = Storage::put("public/carrying_cost.json", $jsonfile);
 
       //kembali ke view oc
-      return redirect(route('order_cost'));
+      return redirect(route('carrying_cost'));
     }
 }

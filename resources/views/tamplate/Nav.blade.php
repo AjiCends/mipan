@@ -49,7 +49,7 @@
             <a class="nav-link" href="{{route('order_cost')}}">OC</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">CC</a>
+            <a class="nav-link" href="{{route('carrying_cost')}}">CC</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Inventaris</a>

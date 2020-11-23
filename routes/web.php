@@ -33,9 +33,14 @@ Route::get('/registrasi',function(){
 Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
   Route::get('/Eoq','AdEoqController@index')->name('eoq');
   Route::get('/karyawan','KaryawanController@index')->name('karyawan');
+  //order cost
   Route::get('/order_cost','OrderCostController@index')->name('order_cost');
   Route::post('/order_cost/create','OrderCostController@create')->name('order_cost/create');
   Route::get('/order_cost/destroy/{id}','OrderCostController@destroy')->name('order_cost/destroy');
+  //carrying Cost
+  Route::get('/carrying_cost','CarryingCostController@index')->name('carrying_cost');
+  Route::post('/carrying_cost/create','CarryingCostController@create')->name('carrying_cost/create');
+  Route::get('/carrying_cost/destroy/{id}','CarryingCostController@destroy')->name('carrying_cost/destroy');
 });
 
 //middleware untuk Karyawan
