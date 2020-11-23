@@ -25,7 +25,7 @@
               <i class="fas fa-ellipsis-v dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white"></i>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item text-dark" href="#">Profil</a>
-                <a class="dropdown-item text-dark" href="/logout">Logout</a>
+                <a class="dropdown-item text-dark" href="{{route('logout')}}">Logout</a>
               </div>
         </li>
         </span>
@@ -43,10 +43,10 @@
             <a class="nav-link" href="#">Produk <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Eoq">EOQ</a>
+            <a class="nav-link" href="{{route('eoq')}}">EOQ</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">OC</a>
+            <a class="nav-link" href="{{route('order_cost')}}">OC</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">CC</a>
@@ -58,14 +58,14 @@
             <a class="nav-link" href="#">Jadwal</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/karyawan">Karyawan</a>
+            <a class="nav-link" href="{{route('karyawan')}}">Karyawan</a>
           </li>
         </ul>
         <li class="dropdown float-right">
               <i class="fas fa-ellipsis-v dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white"></i>
               <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item text-dark" href="#">Profil</a>
-                <a class="dropdown-item text-dark" href="/logout">Logout</a>
+                <a class="dropdown-item text-dark" href="{{route('logout')}}">Logout</a>
               </div>
         </li>
 

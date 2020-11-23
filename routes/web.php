@@ -18,24 +18,32 @@
 //   return view('tamplate\admin\nav');
 // });
 
+//proses login
 Route::get('/','AuthController@login')->name('login');
-Route::post('/postLogin','AuthController@postLogin');
-Route::get('/logout','AuthController@logout');
+Route::post('/postLogin','AuthController@postLogin')->name('postLogin');
+Route::get('/logout','AuthController@logout')->name('logout');
 
-Route::post('/karyawan/create','KaryawanController@create');
+//registrasi karyawan
+Route::post('/karyawan/create','KaryawanController@create')->name('karyawan/create');
 Route::get('/registrasi',function(){
   return view('Auth.registrasi');
-});
+})->name('registrasi');
 
+//middleware untuk Admin
 Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
-  Route::get('/Eoq','AdEoqController@index');
-  Route::get('/karyawan','KaryawanController@index');
+  Route::get('/Eoq','AdEoqController@index')->name('eoq');
+  Route::get('/karyawan','KaryawanController@index')->name('karyawan');
+  Route::get('/order_cost','OrderCostController@index')->name('order_cost');
+  Route::post('/order_cost/create','OrderCostController@create')->name('order_cost/create');
+  Route::get('/order_cost/destroy/{id}','OrderCostController@destroy')->name('order_cost/destroy');
 });
 
+//middleware untuk Karyawan
 Route::group(['middleware' => ['auth','CheckRole:karyawan']],  function (){
-  Route::get('/jadwal-karyawan','KarJadwalController@index');
+  Route::get('/jadwal_karyawan','KarJadwalController@index')->name('jadwal_karyawan');
 });
 
+//middleware multiusers
 Route::group(['middleware' => ['auth','CheckRole:admin,karyawan']],  function (){
-  Route::get('/home','homeController@index');
+  Route::get('/home','homeController@index')->name('home');
 });

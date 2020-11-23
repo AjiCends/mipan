@@ -121,6 +121,7 @@
         }
         }
     </style>
+
     <title>Hello, world!</title>
   </head>
   <body>
@@ -140,7 +141,7 @@
                 <h2 class="login-heading-bold mb-4">Mipan(Sistem Informasi Persediaan)</h2>
                 <h3 class="login-heading mb-4">Selamat Datang!</h3>
 
-                <form action="/postLogin" method="POST">
+                <form action="{{route('postLogin')}}" method="POST">
                     {{csrf_field()}}
                     <div class="form-label-group">
                     <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
