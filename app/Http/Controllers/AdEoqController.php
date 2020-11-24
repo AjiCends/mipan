@@ -26,7 +26,9 @@ class AdEoqController extends Controller
       //diurutkan dari yang terbaru
       rsort($cc);
 
-      return view('admin\eoq',compact('oc','cc'));
+      $dataeoq = \App\Eoq::all();
+
+      return view('admin\eoq',compact('oc','cc'),['dataeoq' => $dataeoq]);
     }
 
     /**
@@ -34,9 +36,10 @@ class AdEoqController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+      \App\Eoq::create($request->all());
+      return redirect(route('eoq'));
     }
 
     /**

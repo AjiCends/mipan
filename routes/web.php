@@ -31,7 +31,10 @@ Route::get('/registrasi',function(){
 
 //middleware untuk Admin
 Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
+  //EOQ
   Route::get('/Eoq','AdEoqController@index')->name('eoq');
+  Route::post('/Eoq/create','AdEoqController@create')->name('eoq/create');
+
   Route::get('/karyawan','KaryawanController@index')->name('karyawan');
   //order cost
   Route::get('/order_cost','OrderCostController@index')->name('order_cost');

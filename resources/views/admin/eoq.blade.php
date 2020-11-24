@@ -9,11 +9,16 @@
     @section('content')
     <div class="row mt-3">
       <!-- eoq -->
+      <!-- form layout eoq -->
       <div class="col-4">
         <h3 class="mb-4">Perhitungan EOQ</h3>
           <div class="form-group">
             <label for="demand">Jumlah Permintaan (pcs)</label>
             <input type="text" class="form-control" id="demand">
+          </div>
+          <div class="form-group">
+            <label for="tanggal">Tanggal Mulai Produksi</label>
+            <input class="form-control" type="date" value="" id="tanggal">
           </div>
           <div class="form-group">
             <label for="oc">Ordering Cost</label>
@@ -35,19 +40,22 @@
             <input type="text" class="form-control" id="frekwensi">
           </div>
 
-          <form class="" action="" method="post">
-            <input type="hidden" name="" value="" id="hdemand">
-            <input type="hidden" name="" value="" id="hoc">
-            <input type="hidden" name="" value="" id="hcc">
-            <input type="hidden" name="" value="" id="heoq">
-            <input type="hidden" name="" value="" id="hfrek">
-            <button class="btn btn-primary" type="submit" name="button">Simpan</button>
+          <!-- form input eoq -->
+          <form class="" action="{{route('eoq/create')}}" method="post">
+            {{csrf_field()}}
+            <input type="hidden" value="90" id="hdemand" name="demand">
+            <input type="hidden" value="2020-10-11" id="htanggal" name="tanggal">
+            <input type="hidden" value="50000" id="hoc" name="oc">
+            <input type="hidden" value="40000" id="hcc" name="cc">
+            <input type="hidden" value="3000" id="heoq" name="eoq">
+            <input type="hidden" value="3" id="hfrek" name="frekwensi">
+            <input class="btn btn-primary" type="submit" name="simpan" >
           </form>
       </div>
       <!-- Order Cost -->
       <div class="col-4">
         <h3 class="mb-5">Daftar Ordering Cost</h3>
-        <div class="overflow-auto" style="max-height: 25rem;">
+        <div class="overflow-auto" style="max-height: 35rem;">
           <!-- card order cost -->
           <!-- looping json -->
             <!-- looping the keys -->
@@ -76,7 +84,7 @@
       <!-- carrying cost -->
       <div class="col-4">
         <h3 class="mb-5">Daftar Carrying Cost</h3>
-        <div class="overflow-auto" style="max-height: 25rem;">
+        <div class="overflow-auto" style="max-height: 35rem;">
           <!-- card order cost -->
           <!-- looping json -->
             <!-- looping the keys -->
@@ -105,6 +113,28 @@
 
     <hr class="my-5" style="border: 1px solid lightgrey;">
     <h2>Daftar EOQ</h2>
+    <?php //dd($dataeoq); ?>
+    <div class="row row-cols-1 row-cols-md-3 mt-3">
+      @foreach ($dataeoq as $data)
+      <div class="col mb-4">
+        <div class="card">
+          <div class="card-header bg-warning text-dark">
+            <h5 class="font-weight-bold">Data Eoqi id-{{$data['id']}}</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <!-- looping isi -->
+            <li class="list-group-item">Demand : {{$data['demand']}}</li>
+            <li class="list-group-item">Tanggal Produksi : {{$data['tanggal']}}</li>
+            <li class="list-group-item">Order Cost : {{$data['oc']}}</li>
+            <li class="list-group-item">Carrying Cost : {{$data['cc']}}</li>
+            <li class="list-group-item">Hasil EOQ : {{$data['eoq']}}</li>
+            <li class="list-group-item">Frekwensi beli : {{$data['frekwensi']}}</li>
+          </ul>
+        </div>
+      </div>
+      @endforeach
+    </div>
+
 
     @endsection
 
@@ -112,15 +142,23 @@
     <script type="text/javascript">
       function Eoq() {
         var demand = parseInt(document.getElementById('demand').value);
+        var tanggal = document.getElementById('tanggal').value;
         var oc = parseInt(document.getElementById('oc').value);
         var cc = parseInt(document.getElementById('cc').value);
 
         var hasil = Math.sqrt(2*demand*oc/cc)
-        var frekwensi = Math.sqrt(demand/hasil)
-        var frekwensi = Math.round(frekwensi)
+        var frekwensi = Math.round(demand/hasil)
 
         document.getElementById('hasil').value = hasil;
         document.getElementById('frekwensi').value = frekwensi;
+
+        //memindah value ke hidden form
+        document.getElementById('hdemand').value = demand;
+        document.getElementById('htanggal').value = tanggal;
+        document.getElementById('hoc').value = oc;
+        document.getElementById('hcc').value = cc;
+        document.getElementById('heoq').value = hasil;
+        document.getElementById('hfrek').value = frekwensi;
       }
 
       function pilihoc(oc){
