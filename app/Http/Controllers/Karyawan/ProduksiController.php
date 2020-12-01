@@ -37,7 +37,7 @@ class ProduksiController extends Controller
       $produksi->id_Karyawan = $idkaryawan;
       $produksi->kuantitas = $request->kuantitas;
       $produksi->save();
-      return redirect(route('produksi'))-with('sukses','Data berhasil di simpan');
+      return redirect(route('produksi'));
     }
 
     /**
