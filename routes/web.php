@@ -44,11 +44,18 @@ Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
   Route::get('/carrying_cost','CarryingCostController@index')->name('carrying_cost');
   Route::post('/carrying_cost/create','CarryingCostController@create')->name('carrying_cost/create');
   Route::get('/carrying_cost/destroy/{id}','CarryingCostController@destroy')->name('carrying_cost/destroy');
+  //produk
+  Route::get('/produk','ProdukController@index')->name('produk');
+  Route::post('/produk/create','ProdukController@create')->name('produk/create');
+  Route::patch('/produk/update','ProdukController@update')->name('produk/update');
+  Route::get('/produk/destroy/{id}','ProdukController@destroy')->name('produk/destroy');
 });
 
 //middleware untuk Karyawan
 Route::group(['middleware' => ['auth','CheckRole:karyawan']],  function (){
   Route::get('/jadwal_karyawan','KarJadwalController@index')->name('jadwal_karyawan');
+  Route::get('/produksi','Karyawan\ProduksiController@index')->name('produksi');
+  Route::patch('/produksi/create','Karyawan\ProduksiController@create')->name('produksi/create');
 });
 
 //middleware multiusers

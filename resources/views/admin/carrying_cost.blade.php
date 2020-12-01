@@ -56,10 +56,10 @@
     </div>
     </div>
 
-    <!-- Daftar Order Cost-->
+    <!-- Daftar Carrying Cost-->
     <h3 class="mt-5">Daftar Carrying Cost</h3>
 
-    <!-- card order cost -->
+    <!-- card Carrying cost -->
     <!-- looping json -->
     <div class="row row-cols-1 row-cols-md-3 mt-3">
       <!-- looping the keys -->

@@ -11,7 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Produksi</a>
+            <a class="nav-link" href="{{route('produksi')}}">Produksi</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Inventaris</a>
@@ -40,7 +40,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Produk <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{route('produk')}}">Produk <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('eoq')}}">EOQ</a>
