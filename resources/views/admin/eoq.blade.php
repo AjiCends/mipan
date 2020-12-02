@@ -43,12 +43,12 @@
           <!-- form input eoq -->
           <form class="" action="{{route('eoq/create')}}" method="post">
             {{csrf_field()}}
-            <input type="hidden" value="90" id="hdemand" name="demand">
-            <input type="hidden" value="2020-10-11" id="htanggal" name="tanggal">
-            <input type="hidden" value="50000" id="hoc" name="oc">
-            <input type="hidden" value="40000" id="hcc" name="cc">
-            <input type="hidden" value="3000" id="heoq" name="eoq">
-            <input type="hidden" value="3" id="hfrek" name="frekwensi">
+            <input type="hidden" value="" id="hdemand" name="demand">
+            <input type="hidden" value="" id="htanggal" name="tanggal">
+            <input type="hidden" value="" id="hoc" name="oc">
+            <input type="hidden" value="" id="hcc" name="cc">
+            <input type="hidden" value="" id="heoq" name="eoq">
+            <input type="hidden" value="" id="hfrek" name="frekwensi">
             <input class="btn btn-primary" type="submit" name="simpan" >
           </form>
       </div>
@@ -119,7 +119,10 @@
       <div class="col mb-4">
         <div class="card">
           <div class="card-header bg-warning text-dark">
-            <h5 class="font-weight-bold">Data Eoqi id-{{$data['id']}}</h5>
+            <h5 class="font-weight-bold float-left">Data Eoqi id-{{$data['id']}}</h5>
+            <a href="{{route('eoq/destroy', $data['id'])}}" style="text-decoration:none">
+              <i class="fas fa-trash float-right text-dark"></i>
+            </a>
           </div>
           <ul class="list-group list-group-flush">
             <!-- looping isi -->
@@ -130,6 +133,15 @@
             <li class="list-group-item">Hasil EOQ : {{$data['eoq']}}</li>
             <li class="list-group-item">Frekwensi beli : {{$data['frekwensi']}}</li>
           </ul>
+          <div class="row">
+            <div class="col text-center my-3">
+              <button type="button" name="button" class="btn btn-primary">
+                <a href="#" style="text-decoration:none"></a>
+                <i class="fas fa-plus-square"></i>
+                Buat Jadwal Produksi
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       @endforeach

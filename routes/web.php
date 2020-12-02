@@ -34,8 +34,13 @@ Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
   //EOQ
   Route::get('/Eoq','AdEoqController@index')->name('eoq');
   Route::post('/Eoq/create','AdEoqController@create')->name('eoq/create');
+  Route::get('/Eoq/destroy/{id}','AdEoqController@destroy')->name('eoq/destroy');
 
+  //Karyawan
   Route::get('/karyawan','KaryawanController@index')->name('karyawan');
+  Route::patch('/karyawan/update','KaryawanController@update')->name('karyawan/update');
+  Route::get('/karyawan/destroy/{id}','KaryawanController@destroy')->name('karyawan/destroy');
+
   //order cost
   Route::get('/order_cost','OrderCostController@index')->name('order_cost');
   Route::post('/order_cost/create','OrderCostController@create')->name('order_cost/create');
@@ -53,7 +58,13 @@ Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
 
 //middleware untuk Karyawan
 Route::group(['middleware' => ['auth','CheckRole:karyawan']],  function (){
+  //Profile
+  Route::get('/profile/{id}','Karyawan\ProfileController@index')->name('profile');
+
+  //jadwal produksi
   Route::get('/jadwal_karyawan','KarJadwalController@index')->name('jadwal_karyawan');
+
+  //produksi
   Route::get('/produksi','Karyawan\ProduksiController@index')->name('produksi');
   Route::patch('/produksi/create','Karyawan\ProduksiController@create')->name('produksi/create');
 });

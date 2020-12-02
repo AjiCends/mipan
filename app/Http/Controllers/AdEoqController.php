@@ -27,7 +27,7 @@ class AdEoqController extends Controller
       rsort($cc);
 
       $dataeoq = \App\Eoq::all();
-
+      $dataeoq = $dataeoq->reverse();
       return view('admin\eoq',compact('oc','cc'),['dataeoq' => $dataeoq]);
     }
 
@@ -95,6 +95,8 @@ class AdEoqController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $eoq = \App\Eoq::find($id);
+      $eoq->delete();
+      return redirect(route('eoq'))->with('sukses','Produk berhasil dihapus');
     }
 }

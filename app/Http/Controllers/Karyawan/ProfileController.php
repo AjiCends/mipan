@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+namespace App\Http\Controllers\Karyawan;
 use App\Karyawan;
-class KaryawanController extends Controller
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $data_karyawan = \App\Karyawan::all();
-        return view('admin.karyawan',['data_karyawan' => $data_karyawan]);
+      $karyawan = \App\Karyawan::where('user_id',$id)->get();
+      return view('karyawan.profile',['karyawan' => $karyawan]);
     }
 
     /**
@@ -22,22 +23,9 @@ class KaryawanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-      //insert ke tabel user
-      $user = new \App\User;
-      $user->role = 'karyawan';
-      $user->name = $request->nama;
-      $user->email = $request->email;
-      $user->password = bcrypt($request->password);
-      $user->remember_token = str_random(60);
-      $user->save();
-
-      //insert tabel karyawan
-      $request->request->add(['user_id' => $user->id]);
-      $karyawan = \App\Karyawan::create($request->all());
-
-      return redirect('/')->with('sukses','Data berhasil di input');
+        //
     }
 
     /**
@@ -80,14 +68,9 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-      $karyawam = \App\Karyawan::find($request->id);
-      $karyawam->nama = $request->nama;
-      $karyawam->gender = $request->gender;
-      $karyawam->alamat = $request->alamat;
-      $karyawam->save();
-      return redirect(route('karyawan'));
+        //
     }
 
     /**
@@ -98,8 +81,6 @@ class KaryawanController extends Controller
      */
     public function destroy($id)
     {
-      $produk = \App\Karyawan::find($id);
-      $produk->delete();
-      return redirect(route('karyawan'))->with('sukses','Produk berhasil dihapus');
+        //
     }
 }

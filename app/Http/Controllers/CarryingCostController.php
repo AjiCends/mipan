@@ -35,8 +35,8 @@ class CarryingCostController extends Controller
       $data = json_decode($json, true);
 
       //mengambil array id terakhir
-      $end = count($data)-1;
-      $endid = $data[$end]['id'];
+      $end = count($data);
+      $endid = $data[1]['id'];
       $idlist = $endid+1;
 
       //menangkap inputan dari request
