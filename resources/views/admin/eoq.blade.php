@@ -13,7 +13,15 @@
       <div class="col-4">
         <h3 class="mb-4">Perhitungan EOQ</h3>
           <div class="form-group">
-            <label for="demand">Jumlah Permintaan (pcs)</label>
+            <label for="produk">Nama Order Cost</label>
+            <select class="form-control" id="produk" name="produk">
+              @foreach($produk as $produk)
+              <option value="{{$produk['id']}}">{{$produk['namaproduk']}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="demand">Jumlah Permintaan (kg)</label>
             <input type="text" class="form-control" id="demand">
           </div>
           <div class="form-group">
@@ -43,6 +51,7 @@
           <!-- form input eoq -->
           <form class="" action="{{route('eoq/create')}}" method="post">
             {{csrf_field()}}
+            <input type="hidden" value="" id="hproduk" name="produk">
             <input type="hidden" value="" id="hdemand" name="demand">
             <input type="hidden" value="" id="htanggal" name="tanggal">
             <input type="hidden" value="" id="hoc" name="oc">
@@ -113,7 +122,6 @@
 
     <hr class="my-5" style="border: 1px solid lightgrey;">
     <h2>Daftar EOQ</h2>
-    <?php //dd($dataeoq); ?>
     <div class="row row-cols-1 row-cols-md-3 mt-3">
       @foreach ($dataeoq as $data)
       <div class="col mb-4">
@@ -135,11 +143,10 @@
           </ul>
           <div class="row">
             <div class="col text-center my-3">
-              <button type="button" name="button" class="btn btn-primary">
-                <a href="#" style="text-decoration:none"></a>
+              <a type="button" class="btn btn-primary" href="#" style="text-decoration:none">
                 <i class="fas fa-plus-square"></i>
                 Buat Jadwal Produksi
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -153,6 +160,7 @@
     @section('Eoq')
     <script type="text/javascript">
       function Eoq() {
+        var produk = parseInt(document.getElementById('produk').value);
         var demand = parseInt(document.getElementById('demand').value);
         var tanggal = document.getElementById('tanggal').value;
         var oc = parseInt(document.getElementById('oc').value);
@@ -165,6 +173,7 @@
         document.getElementById('frekwensi').value = frekwensi;
 
         //memindah value ke hidden form
+        document.getElementById('hproduk').value = produk;
         document.getElementById('hdemand').value = demand;
         document.getElementById('htanggal').value = tanggal;
         document.getElementById('hoc').value = oc;
@@ -178,7 +187,9 @@
       }
 
       function pilihcc(cc){
-        document.getElementById('cc').value = cc;
+        var demand = parseInt(document.getElementById('demand').value);
+        var hasil = cc/demand
+        document.getElementById('cc').value = hasil;
       }
 
 

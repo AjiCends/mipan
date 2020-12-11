@@ -8,7 +8,7 @@
     @if(auth()->user()->role == 'karyawan')
     <?php $id = auth()->user()->id;  ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">MIPAN</a>
+      <a class="navbar-brand" href="#">SAKU</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
@@ -37,7 +37,7 @@
 
     @if(auth()->user()->role == 'admin')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/home">MIPAN</a>
+      <a class="navbar-brand" href="/home">SAKU</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">

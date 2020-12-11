@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Eoq extends Migration
+class JadwalProduksi extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class Eoq extends Migration
      */
     public function up()
     {
-        Schema::create('eoq', function (Blueprint $table) {
+        Schema::create('jadwal_produksi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('produk',50);
-            $table->integer('demand');
+            $table->String('produk',50);
+            $table->Integer('jumlahBahan');
             $table->date('tanggal');
-            $table->integer('oc');
-            $table->integer('cc');
-            $table->integer('eoq');
-            $table->integer('frekwensi');
+            $table->String('status',10);
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class Eoq extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eoq');
+        Schema::dropIfExists('jadwal_produksi');
     }
 }

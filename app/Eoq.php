@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Eoq extends Model
 {
   protected $table = 'eoq';
-  protected $fillable = ['demand', 'tanggal', 'oc', 'cc', 'eoq', 'frekwensi'];
+  protected $fillable = ['produk', 'demand', 'tanggal', 'oc', 'cc', 'eoq', 'frekwensi'];
+
+  public function produk()
+  {
+      return $this->belongsTo('App\Produk');
+  }
 }

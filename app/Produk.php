@@ -16,4 +16,9 @@ class Produk extends Model
         }
         return asset('foto/' . $this->foto);
     }
+
+    public function eoq()
+    {
+        return $this->hasMany('App\Eoq');
+    }
 }

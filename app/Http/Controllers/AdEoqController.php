@@ -26,9 +26,14 @@ class AdEoqController extends Controller
       //diurutkan dari yang terbaru
       rsort($cc);
 
+      //mengambil data produk
+      $produk = \App\Produk::all();
+
+      //mengambil data EOQ
       $dataeoq = \App\Eoq::all();
       $dataeoq = $dataeoq->reverse();
-      return view('admin\eoq',compact('oc','cc'),['dataeoq' => $dataeoq]);
+
+      return view('admin\eoq',compact('oc','cc','produk'),['dataeoq' => $dataeoq]);
     }
 
     /**

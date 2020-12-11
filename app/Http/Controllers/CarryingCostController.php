@@ -17,10 +17,11 @@ class CarryingCostController extends Controller
       //mengambil data dari json
       $json = Storage::get('public/carrying_cost.json');
       $data = json_decode($json, true);
-      //diurutkan dari yang terbaru
-      rsort($data);
 
-      return view('admin.carrying_cost', compact('data'));
+      //mengambil data produk
+      $produk = \App\Produk::all();
+
+      return view('admin.carrying_cost', compact('data','produk'));
     }
 
     /**
@@ -30,33 +31,58 @@ class CarryingCostController extends Controller
      */
     public function create(Request $request)
     {
-      //mengambil seua data file json
+      //mengambil semua data file json
       $json = Storage::get('public/carrying_cost.json');
       $data = json_decode($json, true);
 
-      //mengambil array id terakhir
-      $end = count($data);
-      $endid = $data[1]['id'];
-      $idlist = $endid+1;
+      //cek json kosong
+      $hitung = count($data);
 
-      //menangkap inputan dari request
-      $namacc = $request['namacc'];
-      $interval = $request['interval'];
-      $kegiatan = $request['kegiatan'];
-      $ongkos = $request['ongkos'];
-      $count = 0;
-      $arcount = count($ongkos);
+      if ($hitung == 0) {
+        //menangkap inputan dari request
+        $namacc = $request['namacc'];
+        $interval = $request['interval'];
+        $kegiatan = $request['kegiatan'];
+        $ongkos = $request['ongkos'];
+        $count = 0;
+        $arcount = count($ongkos);
 
-      //merubah inputan ke bentuk array
-      $push['id']=$idlist;
-      $push['title']=$namacc;
-      $push['interval']=$interval;
-      for ($i=0; $i < $arcount; $i++){
-      $push['value'][]= array(
-            'kegiatan'=>$kegiatan[$i],
-            'harga'=>intval($ongkos[$i])
-        );
-      };
+        //merubah inputan ke bentuk array
+        $push['id']=1;
+        $push['title']=$namacc;
+        $push['interval']=$interval;
+        for ($i=0; $i < $arcount; $i++){
+        $push['value'][]= array(
+              'kegiatan'=>$kegiatan[$i],
+              'harga'=>intval($ongkos[$i])
+          );
+        };
+      }
+      else {
+        //mengambil array id terakhir
+        $end = count($data)-1;
+        $endid = $data[$end]['id'];
+        $idlist = $endid+1;
+
+        //menangkap inputan dari request
+        $namacc = $request['namacc'];
+        $interval = $request['interval'];
+        $kegiatan = $request['kegiatan'];
+        $ongkos = $request['ongkos'];
+        $count = 0;
+        $arcount = count($ongkos);
+
+        //merubah inputan ke bentuk array
+        $push['id']=$idlist;
+        $push['title']=$namacc;
+        $push['interval']=$interval;
+        for ($i=0; $i < $arcount; $i++){
+        $push['value'][]= array(
+              'kegiatan'=>$kegiatan[$i],
+              'harga'=>intval($ongkos[$i])
+          );
+        };
+      }
 
       //menambahkan $push ke json
       $data[]=$push;
@@ -120,13 +146,17 @@ class CarryingCostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $count)
     {
       $json = Storage::get('public/carrying_cost.json');
       $data = json_decode($json, true);
-      unset($data[$id-1]);
+      $count = $count - 1;
 
-      $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
+      unset($data[$count]);
+
+      $rdata = array_values($data);
+
+      $jsonfile = json_encode($rdata, JSON_PRETTY_PRINT);
       $file = Storage::put("public/carrying_cost.json", $jsonfile);
 
       //kembali ke view oc

@@ -18,8 +18,12 @@
         @csrf
         <!-- input nama order cost -->
         <div class="form-group">
-            <label for="namaoc">Nama Order Cost</label>
-            <input type="text" class="form-control" id="namaoc" name="namaoc">
+          <label for="namaoc">Nama Order Cost</label>
+          <select class="form-control" id="namaoc" name="namaoc">
+            @foreach($produk as $produk)
+            <option>{{$produk['namaproduk']}}</option>
+            @endforeach
+          </select>
         </div>
         <!-- input interval -->
         <div class="form-group">
@@ -63,12 +67,14 @@
     <!-- looping json -->
     <div class="row row-cols-1 row-cols-md-3 mt-3">
       <!-- looping the keys -->
+      <?php $hitung = 0 ?>
       @foreach ($data as $data)
+      <?php $hitung = $hitung + 1 ?>
       <div class="col mb-4">
         <div class="card">
           <div class="card-header bg-info text-white">
             {{$data['title']}}
-            <a href="{{route('order_cost/destroy', $data['id'])}}" style="text-decoration:none">
+            <a href="{{route('order_cost/destroy', ['id'=>$data['id'], 'count' => $hitung])}}" style="text-decoration:none">
               <i class="fas fa-trash float-right text-white"></i>
             </a>
           </div>

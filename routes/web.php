@@ -44,11 +44,11 @@ Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
   //order cost
   Route::get('/order_cost','OrderCostController@index')->name('order_cost');
   Route::post('/order_cost/create','OrderCostController@create')->name('order_cost/create');
-  Route::get('/order_cost/destroy/{id}','OrderCostController@destroy')->name('order_cost/destroy');
+  Route::get('/order_cost/destroy/{id}/{count?}','OrderCostController@destroy')->name('order_cost/destroy');
   //carrying Cost
   Route::get('/carrying_cost','CarryingCostController@index')->name('carrying_cost');
   Route::post('/carrying_cost/create','CarryingCostController@create')->name('carrying_cost/create');
-  Route::get('/carrying_cost/destroy/{id}','CarryingCostController@destroy')->name('carrying_cost/destroy');
+  Route::get('/carrying_cost/destroy/{id}/{count?}','CarryingCostController@destroy')->name('carrying_cost/destroy');
   //produk
   Route::get('/produk','ProdukController@index')->name('produk');
   Route::post('/produk/create','ProdukController@create')->name('produk/create');

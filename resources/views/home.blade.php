@@ -7,7 +7,7 @@
   </head>
   <body>
     @section('content')
-        <h1 class="bold">Selamat datang di DashBorad Mipan</h1>
+        <h1 class="bold">Selamat datang di DashBoard SAKU</h1>
     @endsection
   </body>
 </html>
