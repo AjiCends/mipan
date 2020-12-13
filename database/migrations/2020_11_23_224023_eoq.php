@@ -22,6 +22,7 @@ class Eoq extends Migration
             $table->integer('cc');
             $table->integer('eoq');
             $table->integer('frekwensi');
+            $table->string('interval',10);
             $table->timestamps();
         });
     }

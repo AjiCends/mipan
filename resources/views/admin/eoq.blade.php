@@ -54,6 +54,7 @@
             <input type="hidden" value="" id="hproduk" name="produk">
             <input type="hidden" value="" id="hdemand" name="demand">
             <input type="hidden" value="" id="htanggal" name="tanggal">
+            <input type="hidden" value="" id="hinterval" name="interval">
             <input type="hidden" value="" id="hoc" name="oc">
             <input type="hidden" value="" id="hcc" name="cc">
             <input type="hidden" value="" id="heoq" name="eoq">
@@ -81,10 +82,11 @@
                   $totaloc = $totaloc + (int)$isi['harga'];
                   ?>
                   @endforeach
+                  <?php $interval = $data['interval']; ?>
                   <li class="list-group-item">Jumlah : {{$totaloc}}</li>
-                  <li class="list-group-item">Interval : / {{$data['interval']}}</li>
+                  <li class="list-group-item">Interval : / {{$interval}}</li>
                 </ul>
-                <button class="btn btn-primary" type="button" name="button" onclick="pilihoc({{$totaloc}})">Pilih</button>
+                <button class="btn btn-primary" type="button" name="button" onclick="pilihoc('{{$totaloc}}','{{$interval}}')">Pilih</button>
               </div>
             @endforeach
         </div>
@@ -110,10 +112,11 @@
                   $totalcc = $totalcc + (int)$isi['harga'];
                   ?>
                   @endforeach
+                  <?php $interval = $data['interval']; ?>
                   <li class="list-group-item">Jumlah : {{$totalcc}}</li>
-                  <li class="list-group-item">Interval : / {{$data['interval']}}</li>
+                  <li class="list-group-item">Interval : / {{$interval}}</li>
                 </ul>
-                <button class="btn btn-primary" type="button" name="button" onclick="pilihcc({{$totalcc}})">Pilih</button>
+                <button class="btn btn-primary" type="button" name="button" onclick="pilihcc('{{$totalcc}}','{{$interval}}')">Pilih</button>
               </div>
             @endforeach
         </div>
@@ -143,10 +146,19 @@
           </ul>
           <div class="row">
             <div class="col text-center my-3">
-              <a type="button" class="btn btn-primary" href="#" style="text-decoration:none">
-                <i class="fas fa-plus-square"></i>
-                Buat Jadwal Produksi
-              </a>
+              <form class="" action="{{route('jadwal/create')}}" method="post">
+                {{csrf_field()}}
+                <input type="hidden" name="produk" value="{{$data['produk']}}">
+                <input type="hidden" name="tanggal" value="{{$data['tanggal']}}">
+                <input type="hidden" name="frekwensi" value="{{$data['frekwensi']}}">
+                <input type="hidden" name="interval" value="{{$data['interval']}}">
+                <input type="hidden" name="jumlahBahan" value="{{$data['eoq']}}">
+                <div class="input-container btn btn-primary">
+                  <i class="fas fa-plus-square btn-m"></i>
+                  <input type="submit" name="" value="Buat Jadwal Produksi" class="bg-transparent text-white" style="border: none; outline: none;">
+                </div>
+
+              </form>
             </div>
           </div>
         </div>
@@ -182,14 +194,16 @@
         document.getElementById('hfrek').value = frekwensi;
       }
 
-      function pilihoc(oc){
+      function pilihoc(oc, interval){
         document.getElementById('oc').value = oc;
+        document.getElementById('hinterval').value = interval;
       }
 
-      function pilihcc(cc){
+      function pilihcc(cc, interval){
         var demand = parseInt(document.getElementById('demand').value);
         var hasil = cc/demand
         document.getElementById('cc').value = hasil;
+        document.getElementById('hinterval').value = interval;
       }
 
 

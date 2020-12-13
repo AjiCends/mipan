@@ -35,12 +35,10 @@ Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
   Route::get('/Eoq','AdEoqController@index')->name('eoq');
   Route::post('/Eoq/create','AdEoqController@create')->name('eoq/create');
   Route::get('/Eoq/destroy/{id}','AdEoqController@destroy')->name('eoq/destroy');
-
   //Karyawan
   Route::get('/karyawan','KaryawanController@index')->name('karyawan');
   Route::patch('/karyawan/update','KaryawanController@update')->name('karyawan/update');
   Route::get('/karyawan/destroy/{id}','KaryawanController@destroy')->name('karyawan/destroy');
-
   //order cost
   Route::get('/order_cost','OrderCostController@index')->name('order_cost');
   Route::post('/order_cost/create','OrderCostController@create')->name('order_cost/create');
@@ -54,6 +52,9 @@ Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
   Route::post('/produk/create','ProdukController@create')->name('produk/create');
   Route::patch('/produk/update','ProdukController@update')->name('produk/update');
   Route::get('/produk/destroy/{id}','ProdukController@destroy')->name('produk/destroy');
+  //Penjadwalan
+  Route::post('/jadwal/create','JadwalProduksiController@create')->name('jadwal/create');
+
 });
 
 //middleware untuk Karyawan
@@ -72,4 +73,6 @@ Route::group(['middleware' => ['auth','CheckRole:karyawan']],  function (){
 //middleware multiusers
 Route::group(['middleware' => ['auth','CheckRole:admin,karyawan']],  function (){
   Route::get('/home','homeController@index')->name('home');
+  Route::get('/jadwal','JadwalProduksiController@index')->name('jadwal');
+  Route::post('/jadwal/update','JadwalProduksiController@update')->name('jadwal/update');
 });

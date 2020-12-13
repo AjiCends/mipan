@@ -18,7 +18,7 @@
             <a class="nav-link" href="#">Inventaris</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Jadwal</a>
+            <a class="nav-link" href="{{route('jadwal')}}">Jadwal</a>
           </li>
         </ul>
         <span class="navbar-text">
@@ -56,7 +56,7 @@
             <a class="nav-link" href="#">Inventaris</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Jadwal</a>
+            <a class="nav-link" href="{{route('jadwal')}}">Jadwal</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('karyawan')}}">Karyawan</a>
