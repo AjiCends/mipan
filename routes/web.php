@@ -62,17 +62,24 @@ Route::group(['middleware' => ['auth','CheckRole:karyawan']],  function (){
   //Profile
   Route::get('/profile/{id}','Karyawan\ProfileController@index')->name('profile');
 
-  //jadwal produksi
-  Route::get('/jadwal_karyawan','KarJadwalController@index')->name('jadwal_karyawan');
-
   //produksi
   Route::get('/produksi','Karyawan\ProduksiController@index')->name('produksi');
   Route::patch('/produksi/create','Karyawan\ProduksiController@create')->name('produksi/create');
+  Route::get('/produksi/show','Karyawan\ProduksiController@show')->name('produksi/show');
 });
 
 //middleware multiusers
 Route::group(['middleware' => ['auth','CheckRole:admin,karyawan']],  function (){
   Route::get('/home','homeController@index')->name('home');
-  Route::get('/jadwal','JadwalProduksiController@index')->name('jadwal');
+
+  //Penjadwalan
   Route::post('/jadwal/update','JadwalProduksiController@update')->name('jadwal/update');
+  Route::get('/jadwal/{status?}','JadwalProduksiController@index')->name('jadwal');
+
+  //Inventaris
+  Route::get('/inventaris','InventarisController@index')->name('inventaris');
+  Route::post('/inventaris/create','InventarisController@create')->name('inventaris/create');
+  Route::patch('/inventaris/update','InventarisController@update')->name('inventaris/update');
+  Route::get('/inventaris/destroy/{id}','InventarisController@destroy')->name('inventaris/destroy');
+
 });

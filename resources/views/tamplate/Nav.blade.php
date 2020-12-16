@@ -15,7 +15,7 @@
             <a class="nav-link" href="{{route('produksi')}}">Produksi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Inventaris</a>
+            <a class="nav-link" href="{{route('inventaris')}}">Inventaris</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('jadwal')}}">Jadwal</a>
@@ -53,7 +53,7 @@
             <a class="nav-link" href="{{route('carrying_cost')}}">CC</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Inventaris</a>
+            <a class="nav-link" href="{{route('inventaris')}}">Inventaris</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('jadwal')}}">Jadwal</a>

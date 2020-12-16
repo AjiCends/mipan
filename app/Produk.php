@@ -12,13 +12,18 @@ class Produk extends Model
     public function getFoto()
     {
         if (!$this->foto) {
-            return asset('foto/default.jpg');
+            return asset('images/default.jpeg');
         }
-        return asset('foto/' . $this->foto);
+        return asset('images/' . $this->foto);
     }
 
     public function eoq()
     {
-        return $this->hasMany('App\Eoq');
+        return $this->hasMany('App\Eoq',);
+    }
+
+    public function produksi()
+    {
+        return $this->hasMany('App\Produksi','id_produk','id');
     }
 }

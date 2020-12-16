@@ -11,10 +11,10 @@ class JadwalProduksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($status = 'waiting')
     {
-      $jadwal = \App\Jadwal_produksi::all();
-      return view("jadwal", ['jadwal'=>$jadwal]);
+      $jadwal = \App\Jadwal_produksi::where('status', $status)->get();
+      return view("jadwal_detail", ['jadwal'=>$jadwal]);
     }
 
     /**
@@ -117,7 +117,6 @@ class JadwalProduksiController extends Controller
     public function update(Request $request)
     {
       $jadwal = \App\Jadwal_produksi::find($request->jadwal_id);
-      $jadwal->jumlahBahan = $request->jumlahBahan;
       $jadwal->status = $request->status;
       $jadwal->karyawan_id = $request->karyawan_id;
       $jadwal->save();

@@ -7,61 +7,47 @@
   </head>
   <body>
     @section('content')
+    <!-- 3 tombol atas -->
+
+    <!-- tombol waiting -->
     <div class="row">
       <div class="col-4 btn">
+        <a href="{{route('jadwal', 'waiting')}}" style="text-decoration: none;">
         <div class="d-flex flex-row justify-content-center">
           <i class="fas fa-pause-circle btn-lg text-primary"></i>
         </div>
-        <div class="d-flex flex-row justify-content-center">
+        <div class="d-flex flex-row justify-content-center text-dark">
           Waiting
         </div>
+        </a>
       </div>
 
+      <!-- tombol proses -->
       <div class="col-4 btn">
+        <a href="{{route('jadwal', 'proses')}}" style="text-decoration: none;">
         <div class="d-flex flex-row justify-content-center">
           <i class="fas fa-pause-circle btn-lg text-warning"></i>
         </div>
-        <div class="d-flex flex-row justify-content-center">
+        <div class="d-flex flex-row justify-content-center text-dark">
           Proses
         </div>
+        </a>
       </div>
 
+      <!-- tombol done -->
       <div class="col-4 btn">
+        <a href="{{route('jadwal', 'done')}}" style="text-decoration: none;">
         <div class="d-flex flex-row justify-content-center">
           <i class="fas fa-play-circle btn-lg text-danger"></i>
         </div>
-        <div class="d-flex flex-row justify-content-center">
+        <div class="d-flex flex-row justify-content-center text-dark">
           Done
         </div>
+        </a>
       </div>
     </div>
       <div class="">
-        @if(auth()->user()->role == 'karyawan')
-        @foreach($jadwal as $jadwal)
-        <div class="card my-5">
-          <div class="card-body">
-            <h5 class="card-title">Tanggal Produksi: {{$jadwal['tanggal']}}</h5>
-            <p class="card-text">Produksi: {{$jadwal['produk']}}</p>
-            <p class="card-text">Target Produksi: {{$jadwal['jumlahBahan']}}</p>
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-status="{{$jadwal->status}}" data-id="{{$jadwal->id}}" data-tanggal="{{$jadwal->tanggal}}" data-produk="{{$jadwal->produk}}" data-produksi="{{$jadwal->jumlahBahan}}" data-target="#modaleditstatus">
-              {{$jadwal['status']}}
-            </a>
-          </div>
-        </div>
-        @endforeach
-        @endif
-
-        @if(auth()->user()->role == 'admin')
-        @foreach($jadwal as $jadwal)
-        <div class="card my-5">
-          <div class="card-body">
-            <h5 class="card-title">Tanggal Produksi: {{$jadwal['tanggal']}}</h5>
-            <p class="card-text">Target Produksi: {{$jadwal['jumlahBahan']}}</p>
-            <a href="#" class="btn btn-primary">{{$jadwal['status']}}</a>
-          </div>
-        </div>
-        @endforeach
-        @endif
+        @yield('jadwal')
       </div>
 
       <!-- Modal edit status -->

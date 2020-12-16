@@ -11,13 +11,26 @@ $userid = auth()->user()->id;
   <body>
   @section('content')
   <!-- Card Produk -->
-    <div class="card-group">
+    <div class="row d-flex flex-row-reverse my-3">
+      <div class="btn btn-primary">
+        <a href="{{route('produksi/show')}}" class="text-white" style="text-decoration:none;">
+          Daftar Produksi
+        </a>
+      </div>
+
+    </div>
+    <div class="card-group row">
       @foreach($produk as $produk)
       <div class="card mx-3">
         <img class="card-img-top img-responsive" src="{{asset('images/'.$produk->foto)}}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{$produk['namaproduk']}}</h5>
-          <p class="card-text">Rp.{{$produk['harga']}}</p>
+          <!-- menghitung total produksi -->
+          <?php
+          $id_produk = $produk['id'];
+          $sum = \App\Produksi::where('id_Produk', $id_produk)->sum('kuantitas');
+           ?>
+          <p class="card-text">Jumlah: {{$sum}}</p>
         </div>
         <div class="row">
           <div class="col text-center my-3">
