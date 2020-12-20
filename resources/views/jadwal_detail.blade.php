@@ -27,6 +27,7 @@
     <div class="card my-5">
       <div class="card-body">
         <h5 class="card-title">Tanggal Produksi: {{$jadwal['tanggal']}}</h5>
+        <p class="card-text">Produksi: {{$jadwal['produk']}}</p>
         <p class="card-text">Target Produksi: {{$jadwal['jumlahBahan']}}</p>
         <a href="#" class="btn btn-primary" style="cursor: default;">{{$jadwal['status']}}</a>
       </div>

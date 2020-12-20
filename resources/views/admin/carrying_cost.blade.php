@@ -10,15 +10,13 @@
     <?php //dd($data); ?>
     <!-- Cretae OC Form -->
     <div class="container">
-      <br />
-      <h3>Carrying Cost</h3>
-      <br />
+      <h3 class="my-3">Carrying Cost</h3>
       <div class="table-responsive">
       <form action="{{route('carrying_cost/create')}}" method="post" id="dynamic_form">
         @csrf
         <!-- input nama order cost -->
         <div class="form-group">
-          <label for="namacc">Nama Order Cost</label>
+          <label for="namacc">Nama Carrying Cost</label>
           <select class="form-control" id="namacc" name="namacc">
             @foreach($produk as $produk)
             <option>{{$produk['namaproduk']}}</option>
@@ -87,18 +85,22 @@
           </ul>
           <div class="row">
             <div class="col">
-              <a href="#" class="" style="text-decoration:none">
-                <button type="button" class="btn btn-warning float-right">
+              <!-- mengirim id cc ke edit_cc -->
+                <a href="{{route('carrying_cost/edit', $hitung)}}" type="button" name="button" class="btn btn-warning float-right">
                   <i class="fas fa-edit"></i>
                   edit
-                </button>
-              </a>
+                </a>
+              <!-- end mengirim id cc ke edit_cc -->
             </div>
           </div>
         </div>
       </div>
       @endforeach
     </div>
+
+
+
+
     @endsection
   </body>
 </html>

@@ -13,7 +13,7 @@
       <div class="col-4">
         <h3 class="mb-4">Perhitungan EOQ</h3>
           <div class="form-group">
-            <label for="produk">Nama Order Cost</label>
+            <label for="produk">Nama Produk</label>
             <select class="form-control" id="produk" name="produk">
               @foreach($produk as $produk)
               <option value="{{$produk['id']}}">{{$produk['namaproduk']}}</option>
@@ -123,6 +123,7 @@
       </div>
     </div>
 
+    <!-- Daftar EOQ -->
     <hr class="my-5" style="border: 1px solid lightgrey;">
     <h2>Daftar EOQ</h2>
     <div class="row row-cols-1 row-cols-md-3 mt-3">

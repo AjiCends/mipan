@@ -43,10 +43,14 @@ Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
   Route::get('/order_cost','OrderCostController@index')->name('order_cost');
   Route::post('/order_cost/create','OrderCostController@create')->name('order_cost/create');
   Route::get('/order_cost/destroy/{id}/{count?}','OrderCostController@destroy')->name('order_cost/destroy');
+  Route::get('/order_cost/edit/{id?}','OrderCostController@edit')->name('order_cost/edit');
+  Route::post('/order_cost/update','OrderCostController@update')->name('order_cost/update');
   //carrying Cost
   Route::get('/carrying_cost','CarryingCostController@index')->name('carrying_cost');
   Route::post('/carrying_cost/create','CarryingCostController@create')->name('carrying_cost/create');
   Route::get('/carrying_cost/destroy/{id}/{count?}','CarryingCostController@destroy')->name('carrying_cost/destroy');
+  Route::get('/carrying_cost/edit/{id?}','CarryingCostController@edit')->name('carrying_cost/edit');
+  Route::post('/carrying_cost/update','CarryingCostController@update')->name('carrying_cost/update');
   //produk
   Route::get('/produk','ProdukController@index')->name('produk');
   Route::post('/produk/create','ProdukController@create')->name('produk/create');

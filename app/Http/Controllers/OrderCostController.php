@@ -125,7 +125,15 @@ class OrderCostController extends Controller
      */
     public function edit($id)
     {
-        //
+      //mengambil data dari json
+      $json = Storage::get('public/order_cost.json');
+      $data = json_decode($json, true);
+      $id = $id-1;
+
+      //mengambil data produk
+      $produk = \App\Produk::all();
+
+      return view('admin.edit_oc', compact('data','id','produk'));
     }
 
     /**
@@ -135,9 +143,43 @@ class OrderCostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-      //
+      //mengambil semua data file json
+      $json = Storage::get('public/order_cost.json');
+      $data = json_decode($json, true);
+
+      //mengambil index array
+      $count = $request['count'];
+
+      //menangkap inputan dari request
+      $idlist = $request['id'];
+      $namaoc = $request['namaoc'];
+      $interval = $request['interval'];
+      $kegiatan = $request['kegiatan'];
+      $ongkos = $request['ongkos'];
+      $arcount = count($ongkos);
+
+      //merubah inputan ke bentuk array
+      $push['id']=$idlist;
+      $push['title']=$namaoc;
+      $push['interval']=$interval;
+      for ($i=0; $i < $arcount; $i++){
+      $push['value'][]= array(
+            'kegiatan'=>$kegiatan[$i],
+            'harga'=>intval($ongkos[$i])
+        );
+      };
+
+      //menambahkan $push ke index yang akan di update.
+      $data[$count]=$push;
+
+      //push json
+      $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
+      $file = Storage::put("public/order_cost.json", $jsonfile, LOCK_EX);
+
+      //kembali ke view oc
+      return redirect(route('order_cost'));
     }
 
     /**

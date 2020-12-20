@@ -162,7 +162,7 @@
                 </form>
 
                 <a href="/registrasi" style="text-decoration:none"><div class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2">Daftar</div></a>
-                <a class="small" href="#">Forgot password?</a></div>
+                <!-- <a class="small" href="#">Forgot password?</a></div> -->
                 </div>
             </div>
             </div>

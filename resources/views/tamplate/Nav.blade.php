@@ -8,7 +8,7 @@
     @if(auth()->user()->role == 'karyawan')
     <?php $id = auth()->user()->id;  ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">SAKU</a>
+      <a class="navbar-brand" href="/home">MIPAN</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
@@ -37,7 +37,7 @@
 
     @if(auth()->user()->role == 'admin')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/home">SAKU</a>
+      <a class="navbar-brand" href="/home">MIPAN</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -65,7 +65,6 @@
         <li class="dropdown float-right">
               <i class="fas fa-ellipsis-v dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white"></i>
               <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item text-dark" href="#">Profil</a>
                 <a class="dropdown-item text-dark" href="{{route('logout')}}">Logout</a>
               </div>
         </li>

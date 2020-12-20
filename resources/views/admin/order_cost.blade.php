@@ -87,12 +87,12 @@
           </ul>
           <div class="row">
             <div class="col">
-              <a href="#" class="" style="text-decoration:none">
-                <button type="button" class="btn btn-warning float-right">
+              <!-- mengirim id cc ke edit_cc -->
+                <a href="{{route('order_cost/edit', $hitung)}}" type="button" name="button" class="btn btn-warning float-right ">
                   <i class="fas fa-edit"></i>
                   edit
-                </button>
-              </a>
+                </a>
+              <!-- end mengirim id cc ke edit_cc -->
             </div>
           </div>
         </div>
