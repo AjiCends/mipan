@@ -31,7 +31,7 @@ class JadwalProduksiController extends Controller
       if ($interval=="Minggu") {
 
         $jadwal = new Jadwal_produksi;
-        $jadwal->produk = $request->produk;
+        $jadwal->produk_id = $request->produk;
         $jadwal->jumlahBahan = $request->jumlahBahan;
         $jadwal->tanggal = $tanggal;
         $jadwal->status = "waiting";
@@ -43,7 +43,7 @@ class JadwalProduksiController extends Controller
           $tanggal = date_format($date,"Y-m-d");
 
           $jadwal = new Jadwal_produksi;
-          $jadwal->produk = $request->produk;
+          $jadwal->produk_id = $request->produk;
           $jadwal->jumlahBahan = $request->jumlahBahan;
           $jadwal->tanggal = $tanggal;
           $jadwal->status = "waiting";
@@ -51,7 +51,7 @@ class JadwalProduksiController extends Controller
         }
       }else {
         $jadwal = new Jadwal_produksi;
-        $jadwal->produk = $request->produk;
+        $jadwal->produk_id = $request->produk;
         $jadwal->jumlahBahan = $request->jumlahBahan;
         $jadwal->tanggal = $tanggal;
         $jadwal->status = "waiting";
@@ -63,7 +63,7 @@ class JadwalProduksiController extends Controller
           $tanggal = date_format($date,"Y-m-d");
 
           $jadwal = new Jadwal_produksi;
-          $jadwal->produk = $request->produk;
+          $jadwal->produk_id = $request->produk;
           $jadwal->jumlahBahan = $request->jumlahBahan;
           $jadwal->tanggal = $tanggal;
           $jadwal->status = "waiting";
@@ -116,12 +116,13 @@ class JadwalProduksiController extends Controller
      */
     public function update(Request $request)
     {
+      $status = $request->status;
       $jadwal = \App\Jadwal_produksi::find($request->jadwal_id);
       $jadwal->status = $request->status;
       $jadwal->karyawan_id = $request->karyawan_id;
       $jadwal->save();
 
-      return redirect('jadwal');
+      return redirect(route('jadwal',$status));
     }
 
     /**

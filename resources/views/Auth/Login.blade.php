@@ -122,13 +122,14 @@
         }
     </style>
 
-    <title>Hello, world!</title>
+    <title>Mipan Login</title>
   </head>
   <body>
     @if(session('sukses'))
-      <div class="alert alert-success mx-auto" role="alert">
-        {{session('sukses')}}
-      </div>
+        <script>alert('{{session('sukses')}}');</script>
+    @endif
+    @if(session('gagal'))
+        <script>alert('{{session('gagal')}}');</script>
     @endif
     <div class="container-fluid">
     <div class="row no-gutter">
@@ -143,14 +144,20 @@
 
                 <form action="{{route('postLogin')}}" method="POST">
                     {{csrf_field()}}
-                    <div class="form-label-group">
-                    <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                    <label for="inputEmail">Email address</label>
+                    <div class="form-label-group {{$errors->has('email')? '' : ''}}">
+                      <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" value="{{old('email')}}" autofocus>
+                      <label for="inputEmail">Email address</label>
+                      @if($errors->has('email'))
+                        <span class="help-block font-weight-bold text-danger">{{$errors->first('email')}}</span>
+                      @endif
                     </div>
 
-                    <div class="form-label-group">
-                    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <div class="form-label-group {{$errors->has('password')? '' : ''}}">
+                    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" value="{{old('password')}}">
                     <label for="inputPassword">Password</label>
+                    @if($errors->has('password'))
+                      <span class="help-block font-weight-bold text-danger">{{$errors->first('password')}}</span>
+                    @endif
                     </div>
 
                     <!-- <div class="custom-control custom-checkbox mb-3">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Karyawan;
+use App\User;
 class KaryawanController extends Controller
 {
     /**
@@ -24,6 +25,21 @@ class KaryawanController extends Controller
      */
     public function create(Request $request)
     {
+      //Cek validasi Registrasi
+      $this->validate($request,[
+        'nama' => 'required',
+        'alamat' => 'required',
+        'email' => 'required|unique:users',
+        'password' => 'required'
+      ],[
+        //pesan validasi
+        'nama.required' => 'Nama wajib diisi',
+        'alamat.required' => 'Alamat wajib diisi',
+        'email.required' => 'Email wajib diisi',
+        'email.unique' => 'Email sudah digunakan, coba yang lain',
+        'password.required' => 'Password wajib diisi'
+      ]);
+
       //insert ke tabel user
       $user = new \App\User;
       $user->role = 'karyawan';
@@ -37,7 +53,7 @@ class KaryawanController extends Controller
       $request->request->add(['user_id' => $user->id]);
       $karyawan = \App\Karyawan::create($request->all());
 
-      return redirect('/')->with('sukses','Data berhasil di input');
+      return redirect('/')->with('sukses','Berhasil membuat akun karyawan baru');
     }
 
     /**
@@ -98,8 +114,15 @@ class KaryawanController extends Controller
      */
     public function destroy($id)
     {
-      $produk = \App\Karyawan::find($id);
-      $produk->delete();
-      return redirect(route('karyawan'))->with('sukses','Produk berhasil dihapus');
+      //mengambil data karyawan
+      $karyawan = \App\Karyawan::find($id);
+      //mengambil nama karyawan
+      $nama_karyawan = $karyawan->nama;
+
+      $iduser = $karyawan->user_id;
+      $user = \App\User::find($iduser);
+      $karyawan->delete();
+      $user->delete();
+      return redirect(route('karyawan'))->with('sukses',"Karyawan $nama_karyawan berhasil dihapus");
     }
 }

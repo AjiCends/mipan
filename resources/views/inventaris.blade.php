@@ -6,7 +6,20 @@
     <title></title>
   </head>
   <body>
+  <!-- pop up alert -->
   @section('content')
+
+  @if(session('sukses'))
+      <script>alert('{{session('sukses')}}');</script>
+  @endif
+  @if(session('gagal'))
+      <script>alert('{{session('gagal')}}');</script>
+  @endif
+  @if($errors->has('nama_alat','jumlah','foto'))
+      <script>alert('Data inventaris gagal di input');</script>
+  @endif
+
+
   <!-- Button trigger Tambah Inventaris -->
   <div class="d-flex">
     <div class="mr-auto p-2">
@@ -63,24 +76,32 @@
         <div class="modal-body">
           <form action="{{route('inventaris/create')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
-            <div class="form-group">
+            <div class="form-group {{$errors->has('nama_alat')? '' : ''}}">
               <label for="nama_alat">Nama Alat</label>
-              <input type="text" class="form-control"  name="nama_alat">
+              <input type="text" class="form-control"  name="nama_alat" value="{{old('nama_alat')}}">
+              @if($errors->has('nama_alat'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('nama_alat')}}</span>
+              @endif
             </div>
-            <div class="form-group">
+            <div class="form-group {{$errors->has('jumlah')? '' : ''}}">
               <label for="jumlah">Jumlah</label>
-              <input type="text" class="form-control"  name="jumlah">
+              <input type="text" class="form-control"  name="jumlah" value="{{old('jumlah')}}">
+              @if($errors->has('jumlah'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('jumlah')}}</span>
+              @endif
             </div>
-            <div class="form-group">
+            <div class="form-group  {{$errors->has('foto')? '' : ''}}">
               <label for="foto">Foto Alat</label>
               <input type="file" class="form-control-file" name="foto">
+              @if($errors->has('foto'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('foto')}}</span>
+              @endif
             </div>
 
             <!-- menentukan iduser -->
             <?php
               $id = auth()->user()->id;
             ?>
-
             <input type="hidden" name="id_Karyawan" value="{{$id}}">
         </div>
         <div class="modal-footer">
@@ -106,17 +127,26 @@
           <form action="{{route('inventaris/update')}}" method="post" enctype="multipart/form-data" id="editform">
             {{csrf_field()}}
             {{method_field('patch')}}
-            <div class="form-group">
+            <div class="form-group {{$errors->has('nama_alat')? '' : ''}}">
               <label for="nama_alat">Nama Alat</label>
-              <input type="text" class="form-control" id="nama_alat" name="nama_alat" value="">
+              <input type="text" class="form-control" id="nama_alat"  name="nama_alat" value="{{old('nama_alat')}}">
+              @if($errors->has('nama_alat'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('nama_alat')}}</span>
+              @endif
             </div>
-            <div class="form-group">
+            <div class="form-group {{$errors->has('jumlah')? '' : ''}}">
               <label for="jumlah">Jumlah</label>
-              <input type="text" class="form-control" id="jumlah" name="jumlah" value="">
+              <input type="text" class="form-control" id="jumlah"  name="jumlah" value="{{old('jumlah')}}">
+              @if($errors->has('jumlah'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('jumlah')}}</span>
+              @endif
             </div>
-            <div class="form-group">
-            <label for="foto">Foto Alat</label>
-              <input type="file" class="form-control-file" id="foto" name="foto" value="">
+            <div class="form-group  {{$errors->has('foto')? '' : ''}}">
+              <label for="foto">Foto Alat</label>
+              <input type="file" class="form-control-file" name="foto">
+              @if($errors->has('foto'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('foto')}}</span>
+              @endif
             </div>
             <input type="hidden" name="prodid" id="prodid" value="">
         </div>

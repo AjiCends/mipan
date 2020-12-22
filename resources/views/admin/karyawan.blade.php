@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+  @if(session('sukses'))
+      <script>alert('{{session('sukses')}}');</script>
+  @endif
     @section('content')
     <div class="row">
       <h3 class="mt-2">Daftar Karyawan</h3>

@@ -9,8 +9,8 @@ class Eoq extends Model
   protected $table = 'eoq';
   protected $fillable = ['produk', 'demand', 'tanggal', 'oc', 'cc', 'eoq', 'frekwensi','interval'];
 
-  public function produk()
+  public function produks()
   {
-      return $this->belongsTo('App\Produk');
+      return $this->belongsTo('App\Produk','produk');
   }
 }

@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth','CheckRole:admin']],  function (){
 Route::group(['middleware' => ['auth','CheckRole:karyawan']],  function (){
   //Profile
   Route::get('/profile/{id}','Karyawan\ProfileController@index')->name('profile');
+  Route::patch('/profile/update','Karyawan\ProfileController@update')->name('profile/update');
 
   //produksi
   Route::get('/produksi','Karyawan\ProduksiController@index')->name('produksi');

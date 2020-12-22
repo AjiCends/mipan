@@ -19,11 +19,16 @@ class Produk extends Model
 
     public function eoq()
     {
-        return $this->hasMany('App\Eoq',);
+        return $this->hasMany('App\Eoq','produk','id');
     }
 
     public function produksi()
     {
         return $this->hasMany('App\Produksi','id_produk','id');
+    }
+
+    public function jadwal_produksi()
+    {
+        return $this->hasMany('App\Jadwal_produksi','produk_id','id');
     }
 }

@@ -7,6 +7,16 @@
   </head>
   <body>
   @section('content')
+  <!-- mengecek apakah terdapat eror -->
+  @if(session('sukses'))
+      <script>alert('{{session('sukses')}}');</script>
+  @endif
+  @if(session('gagal'))
+      <script>alert('{{session('gagal')}}');</script>
+  @endif
+  @if(session('ubah'))
+      <script>alert('{{session('ubah')}}');</script>
+  @endif
   <!-- Button trigger Tambah Produk -->
   <div class="d-flex">
     <div class="mr-auto p-2">
@@ -43,24 +53,6 @@
     @endforeach
   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <!-- Modal Tambah Produk -->
   <div class="modal fade" id="modaltambahproduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -74,17 +66,26 @@
         <div class="modal-body">
           <form action="{{route('produk/create')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
-            <div class="form-group">
+            <div class="form-group {{$errors->has('namaproduk')? '' : ''}}">
               <label for="namaproduk">Nama Produk</label>
-              <input type="text" class="form-control"  name="namaproduk">
+              <input type="text" class="form-control"  name="namaproduk" value="{{old('namaproduk')}}">
+              @if($errors->has('namaproduk'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('namaproduk')}}</span>
+              @endif
             </div>
-            <div class="form-group">
+            <div class="form-group {{$errors->has('harga')? '' : ''}}">
               <label for="harga">Harga</label>
-              <input type="text" class="form-control"  name="harga">
+              <input type="text" class="form-control"  name="harga" value="{{old('harga')}}">
+              @if($errors->has('harga'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('harga')}}</span>
+              @endif
             </div>
-            <div class="form-group">
+            <div class="form-group {{$errors->has('foto')? '' : ''}}">
               <label for="foto">Foto Produk</label>
               <input type="file" class="form-control-file" name="foto">
+              @if($errors->has('foto'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('foto')}}</span>
+              @endif
             </div>
         </div>
         <div class="modal-footer">
@@ -110,17 +111,26 @@
           <form action="{{route('produk/update')}}" method="post" enctype="multipart/form-data" id="editform">
             {{csrf_field()}}
             {{method_field('patch')}}
-            <div class="form-group">
+            <div class="form-group {{$errors->has('namaproduk')? '' : ''}}">
               <label for="namaproduk">Nama Produk</label>
-              <input type="text" class="form-control" id="namaproduk" name="namaproduk" value="">
+              <input type="text" class="form-control" id="namaproduk"  name="namaproduk" value="{{old('namaproduk')}}">
+              @if($errors->has('namaproduk'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('namaproduk')}}</span>
+              @endif
             </div>
-            <div class="form-group">
+            <div class="form-group {{$errors->has('harga')? '' : ''}}">
               <label for="harga">Harga</label>
-              <input type="text" class="form-control" id="harga" name="harga" value="">
+              <input type="text" class="form-control" id="harga"  name="harga" value="{{old('harga')}}">
+              @if($errors->has('harga'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('harga')}}</span>
+              @endif
             </div>
-            <div class="form-group">
-            <label for="foto">Foto Produk</label>
-              <input type="file" class="form-control-file" id="foto" name="foto" value="">
+            <div class="form-group {{$errors->has('foto')? '' : ''}}">
+              <label for="foto">Foto Produk</label>
+              <input type="file" class="form-control-file" id="foto" name="foto">
+              @if($errors->has('foto'))
+                <span class="help-block font-weight-bold text-danger">{{$errors->first('foto')}}</span>
+              @endif
             </div>
             <input type="hidden" name="prodid" id="prodid" value="">
         </div>

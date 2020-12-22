@@ -14,11 +14,22 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
+      //Cek validasi Registrasi
+      $this->validate($request,[
+        'email' => 'required',
+        'password' => 'required'
+      ],[
+        //pesan validasi
+        'email.required' => 'Harap mengisi email',
+        'password.required' => 'Harap mengisi password'
+      ]);
+
         if(Auth::attempt($request->only('email','password'))){
             return redirect('/home');
         }
-
-        return redirect('/');
+        else {
+          return redirect('/')->with('gagal','Email atau password yang anda masukkan tidak sesuai');
+        }
     }
 
     public function logout()

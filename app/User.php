@@ -19,6 +19,11 @@ class User extends Authenticatable
         'name', 'email', 'password', 'role',
     ];
 
+    public function karyawan()
+    {
+        return $this->hasMany('App\Karyawan','user_id','id');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

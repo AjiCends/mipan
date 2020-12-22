@@ -68,9 +68,15 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+      $karyawan = \App\Karyawan::find($request->id);
+      $id_user = $karyawan->user_id;
+      $karyawan->nama = $request->nama;
+      $karyawan->gender = $request->gender;
+      $karyawan->alamat = $request->alamat;
+      $karyawan->save();
+      return redirect(route('profile', $id_user));
     }
 
     /**

@@ -9,6 +9,15 @@ $userid = auth()->user()->id;
     <title></title>
   </head>
   <body>
+  @if(session('sukses'))
+<script>alert('{{session('sukses')}}');</script>
+  @endif
+  @if(session('gagal'))
+      <script>alert('{{session('gagal')}}');</script>
+  @endif
+  @if($errors->has('kuantitas'))
+  <script>alert('Data gagal di input');</script>
+  @endif
   @section('content')
   <!-- Card Produk -->
     <div class="row d-flex flex-row-reverse my-3">
@@ -59,9 +68,12 @@ $userid = auth()->user()->id;
             <form action="{{route('produksi/create')}}" method="post" enctype="multipart/form-data">
               {{csrf_field()}}
               {{method_field('patch')}}
-              <div class="form-group">
+              <div class="form-group {{$errors->has('kuantitas')? '' : ''}}">
                 <label for="kuantitas">Kuantitas Produksi</label>
                 <input type="text" class="form-control"  name="kuantitas">
+                @if($errors->has('kuantitas'))
+                  <span class="help-block font-weight-bold text-danger">{{$errors->first('kuantitas')}}</span>
+                @endif
               </div>
               <input type="hidden" class="form-control" id="idproduk"  name="idproduk" value="">
               <input type="hidden" class="form-control" id="iduser"  name="iduser" value="">

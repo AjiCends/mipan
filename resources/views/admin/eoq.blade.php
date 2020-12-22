@@ -6,6 +6,12 @@
     <title></title>
   </head>
   <body>
+    @if(session('sukses'))
+        <script>alert('{{session('sukses')}}');</script>
+    @endif
+    @if(session('gagal'))
+        <script>alert('{{session('gagal')}}');</script>
+    @endif
     @section('content')
     <div class="row mt-3">
       <!-- eoq -->
@@ -30,11 +36,11 @@
           </div>
           <div class="form-group">
             <label for="oc">Ordering Cost</label>
-            <input type="text" class="form-control" id="oc">
+            <input type="text" class="form-control" id="oc" readonly>
           </div>
           <div class="form-group">
             <label for="cc">Carrying Cost</label>
-            <input type="text" class="form-control" id="cc">
+            <input type="text" class="form-control" id="cc" readonly>
           </div>
           <button class="btn btn-primary" onclick="Eoq()">Hitung EOQ</button>
           <br>
@@ -51,14 +57,30 @@
           <!-- form input eoq -->
           <form class="" action="{{route('eoq/create')}}" method="post">
             {{csrf_field()}}
-            <input type="hidden" value="" id="hproduk" name="produk">
-            <input type="hidden" value="" id="hdemand" name="demand">
-            <input type="hidden" value="" id="htanggal" name="tanggal">
-            <input type="hidden" value="" id="hinterval" name="interval">
-            <input type="hidden" value="" id="hoc" name="oc">
-            <input type="hidden" value="" id="hcc" name="cc">
-            <input type="hidden" value="" id="heoq" name="eoq">
-            <input type="hidden" value="" id="hfrek" name="frekwensi">
+            <div class="{{$errors->has('produk')? '' : ''}}">
+              <input type="hidden" value="" id="hproduk" name="produk">
+            </div>
+            <div class="{{$errors->has('demand')? '' : ''}}">
+              <input type="hidden" value="" id="hdemand" name="demand">
+            </div>
+            <div class="{{$errors->has('tanggal')? '' : ''}}">
+              <input type="hidden" value="" id="htanggal" name="tanggal">
+            </div>
+            <div class="{{$errors->has('interval')? '' : ''}}">
+              <input type="hidden" value="" id="hinterval" name="interval">
+            </div>
+            <div class="{{$errors->has('oc')? '' : ''}}">
+              <input type="hidden" value="" id="hoc" name="oc">
+            </div>
+            <div class="{{$errors->has('cc')? '' : ''}}">
+              <input type="hidden" value="" id="hcc" name="cc">
+            </div>
+            <div class="{{$errors->has('eoq')? '' : ''}}">
+              <input type="hidden" value="" id="heoq" name="eoq">
+            </div>
+            <div class="{{$errors->has('frekwensi')? '' : ''}}">
+              <input type="hidden" value="" id="hfrek" name="frekwensi">
+            </div>
             <input class="btn btn-primary" type="submit" name="simpan" >
           </form>
       </div>
@@ -131,7 +153,7 @@
       <div class="col mb-4">
         <div class="card">
           <div class="card-header bg-warning text-dark">
-            <h5 class="font-weight-bold float-left">Data Eoqi id-{{$data['id']}}</h5>
+            <h5 class="font-weight-bold float-left">Data Eoq id-{{$data['id']}}</h5>
             <a href="{{route('eoq/destroy', $data['id'])}}" style="text-decoration:none">
               <i class="fas fa-trash float-right text-dark"></i>
             </a>
@@ -139,6 +161,7 @@
           <ul class="list-group list-group-flush">
             <!-- looping isi -->
             <li class="list-group-item">Demand : {{$data['demand']}}</li>
+            <li class="list-group-item">Produk : {{$data->produks['namaproduk']}}</li>
             <li class="list-group-item">Tanggal Produksi : {{$data['tanggal']}}</li>
             <li class="list-group-item">Order Cost : {{$data['oc']}}</li>
             <li class="list-group-item">Carrying Cost : {{$data['cc']}}</li>
@@ -173,38 +196,64 @@
     @section('Eoq')
     <script type="text/javascript">
       function Eoq() {
+        //menangkap inputan
         var produk = parseInt(document.getElementById('produk').value);
         var demand = parseInt(document.getElementById('demand').value);
         var tanggal = document.getElementById('tanggal').value;
         var oc = parseInt(document.getElementById('oc').value);
         var cc = parseInt(document.getElementById('cc').value);
+        // validasi inputan eoq
+        if (produk == "" || isNaN(demand)|| tanggal == "" || isNaN(oc) || isNaN(cc)) {
+          alert("Jangan ada data yang kosong");
+          return false;
+        }else {
+          //penghitungan eoq
+          var hasil = Math.sqrt(2*demand*oc/cc)
+          var frekwensi = Math.round(demand/hasil)
 
-        var hasil = Math.sqrt(2*demand*oc/cc)
-        var frekwensi = Math.round(demand/hasil)
+          if (frekwensi == 1) {
+            document.getElementById('hasil').value = demand;
+            document.getElementById('frekwensi').value = frekwensi;
+          }else {
+            document.getElementById('hasil').value = hasil;
+            document.getElementById('frekwensi').value = frekwensi;
+          }
 
-        document.getElementById('hasil').value = hasil;
-        document.getElementById('frekwensi').value = frekwensi;
-
-        //memindah value ke hidden form
-        document.getElementById('hproduk').value = produk;
-        document.getElementById('hdemand').value = demand;
-        document.getElementById('htanggal').value = tanggal;
-        document.getElementById('hoc').value = oc;
-        document.getElementById('hcc').value = cc;
-        document.getElementById('heoq').value = hasil;
-        document.getElementById('hfrek').value = frekwensi;
+          //memindah value ke hidden form
+          document.getElementById('hproduk').value = produk;
+          document.getElementById('hdemand').value = demand;
+          document.getElementById('htanggal').value = tanggal;
+          document.getElementById('hoc').value = oc;
+          document.getElementById('hcc').value = cc;
+          document.getElementById('heoq').value = hasil;
+          document.getElementById('hfrek').value = frekwensi;
+        }
       }
 
       function pilihoc(oc, interval){
-        document.getElementById('oc').value = oc;
-        document.getElementById('hinterval').value = interval;
+        var demand = parseInt(document.getElementById('demand').value);
+        //cek apakah demand kosong
+        if (isNaN(demand)) {
+          alert("Silahkan isi demand terlebih dahulu");
+          return false;
+        }else {
+          document.getElementById('oc').value = oc;
+          document.getElementById('hinterval').value = interval;
+        }
       }
 
       function pilihcc(cc, interval){
         var demand = parseInt(document.getElementById('demand').value);
-        var hasil = cc/demand
-        document.getElementById('cc').value = hasil;
-        document.getElementById('hinterval').value = interval;
+        //cek apakah demand kosong
+        if (isNaN(demand)) {
+          alert("Silahkan isi demand terlebih dahulu");
+          return false;
+        }else {
+          var demand = parseInt(document.getElementById('demand').value);
+          var hasil = cc/demand
+          document.getElementById('cc').value = hasil;
+          document.getElementById('hinterval').value = interval;
+        }
       }
 
 

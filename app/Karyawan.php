@@ -13,4 +13,9 @@ class Karyawan extends Model
     {
         return $this->hasMany('App\Produksi','id_Karyawan','id');
     }
+
+    public function users()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
 }

@@ -27,7 +27,7 @@ $data = $data[$id];
           <?php
             $selected = $data['title'];
           ?>
-          <select class="form-control" id="namacc" name="namaoc">
+          <select class="form-control" id="namaoc" name="namaoc">
             @foreach($produk as $produk)
             <option <?php if ($selected == $produk['namaproduk']){echo"selected";}?> > {{$produk['namaproduk']}} </option>
             @endforeach
@@ -62,10 +62,10 @@ $data = $data[$id];
             <?php $hitung = $hitung + 1; ?>
             <tr>
             <td><div class="form-group">
-              <input type="text" class="form-control" name="kegiatan[]" id="kegiatan" value="{{$isi['kegiatan']}}">
+              <input type="text" class="form-control" name="kegiatan[]" id="kegiatan" value="{{$isi['kegiatan']}}" required>
             </div></td>
             <td><div class="form-group">
-              <input type="text" class="form-control" name="ongkos[]" id="harga" value="{{$isi['harga']}}">
+              <input type="text" class="form-control" name="ongkos[]" id="harga" value="{{$isi['harga']}}" required>
             </div></td>
             </tr>
             @endforeach

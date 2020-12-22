@@ -43,8 +43,17 @@ class AdEoqController extends Controller
      */
     public function create(Request $request)
     {
-      \App\Eoq::create($request->all());
-      return redirect(route('eoq'));
+      try {
+        //mengambil data eoq menurut id
+        \App\Eoq::create($request->all());
+        //redirect
+        return redirect(route('eoq'))->with('sukses','Data EOQ berhasil di simpan');
+      } catch (\Exception $e) {
+        //redirect
+        return redirect(route('eoq'))->with('gagal','Data EOQ gagal di simpan');
+      }
+
+
     }
 
     /**

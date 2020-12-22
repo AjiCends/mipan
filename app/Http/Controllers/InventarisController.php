@@ -27,23 +27,38 @@ class InventarisController extends Controller
      */
     public function create(Request $request)
     {
+      //validasi Request
+      $this->validate($request,[
+        'nama_alat' => 'required|max:50',
+        'jumlah' => 'required|max:11',
+        'foto' => 'required|mimes:jpg,png,jpeg'
+      ],[
+        'nama_alat.required' => 'Nama tidak boleh kosong',
+        'nama_alat.max' => 'Nama tidak boleh lebih dari 50 karakter',
+        'jumlah.required' => 'jumlah tidak boleh kosong',
+        'jumlah.max' => 'jumlah tidak boleh lebih dari 11 digit',
+        'foto.mimes' => 'format foto harus: jpg, jpeg atau png'
+      ]);
+
       if ($request->hasFile('foto')) {
         $request->file('foto')->move('images/',$request->file('foto')->getClientOriginalName());
       }
 
-      // $namaproduk =  $request['namaproduk'];
-      // $harga =  $request['harga'];
-      // $foto =
-      // \App\Produk::create($request->all());
-
-      $inventaris = new Inventaris;
-      $inventaris->id_Karyawan = $request->id_Karyawan;
-      $inventaris->nama_alat = $request->nama_alat;
-      $inventaris->jumlah = $request->jumlah;
-      $inventaris->foto = $request->file('foto')->getClientOriginalName();
-      $inventaris->save();
-
-      return redirect(route('inventaris'));
+      try {
+        //mendefiniskan kolom inventaris
+        $inventaris = new Inventaris;
+        $inventaris->id_Karyawan = $request->id_Karyawan;
+        $inventaris->nama_alat = $request->nama_alat;
+        $inventaris->jumlah = $request->jumlah;
+        $inventaris->foto = $request->file('foto')->getClientOriginalName();
+        //menyimpan data inventaris
+        $inventaris->save();
+        //redirect ke inventaris
+        return redirect(route('inventaris'))->with('sukses','Data inventaris berhasil di input');
+      } catch (\Exception $e) {
+        //redirect ke inventaris
+        return redirect(route('inventaris'))->with('gagal','Data inventaris gagal di input');
+      }
     }
 
     /**
@@ -88,6 +103,20 @@ class InventarisController extends Controller
      */
     public function update(Request $request)
     {
+      //validasi Request
+      $this->validate($request,[
+        'nama_alat' => 'required|max:50',
+        'jumlah' => 'required|max:11',
+        'foto' => 'required|mimes:jpg,png,jpeg'
+      ],[
+        'nama_alat.required' => 'Nama tidak boleh kosong',
+        'nama_alat.max' => 'Nama tidak boleh lebih dari 50 karakter',
+        'jumlah.required' => 'jumlah tidak boleh kosong',
+        'jumlah.max' => 'jumlah tidak boleh lebih dari 11 digit',
+        'foto.mimes' => 'format foto harus: jpg, jpeg atau png'
+      ]);
+
+      //mengambil data inventaris esuai id
       $inventaris = \App\Inventaris::find($request->prodid);
       if ($request->hasFile('foto')) {
         $request->file('foto')->move('images/',$request->file('foto')->getClientOriginalName());

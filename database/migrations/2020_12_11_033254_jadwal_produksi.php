@@ -15,7 +15,7 @@ class JadwalProduksi extends Migration
     {
         Schema::create('jadwal_produksi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->String('produk',50);
+            $table->String('produk_id',50);
             $table->Integer('jumlahBahan')->default(0);
             $table->date('tanggal');
             $table->String('status',10);

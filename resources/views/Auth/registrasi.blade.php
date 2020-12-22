@@ -121,9 +121,12 @@
         }
         }
     </style>
-    <title>Hello, world!</title>
+    <title></title>
   </head>
   <body>
+    @if($errors->has('nama','alamat','email','password'))
+        <script>alert('Gagal input, data tidak boleh kosong');</script>
+    @endif
     <div class="container-fluid">
     <div class="row no-gutter">
         <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
@@ -135,43 +138,45 @@
                 <h2 class="login-heading-bold mb-4">Mipan(Sistem Informasi Persediaan)</h2>
                 <h3 class="login-heading mb-4">Registrasi</h3>
 
+                <!-- form registrasi -->
                 <form action="/karyawan/create" method="POST">
                   {{csrf_field()}}
-                  <div class="form-group">
+                  <div class="form-group {{$errors->has('nama')? '' : ''}}">
                     <label for="exampleFormControlInput1">Nama Lengkap</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" name="nama" style="border-radius: 25rem;" required>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="nama" style="border-radius: 25rem;" value="{{old('nama')}}">
+                    @if($errors->has('nama'))
+                      <span class="help-block font-weight-bold text-danger">{{$errors->first('nama')}}</span>
+                    @endif
                   </div>
-                  <div class="form-group">
+                  <div class="form-group ">
                     <label for="exampleFormControlSelect1">Gender</label>
-                    <select class="form-control form-control" id="gender" name="gender" name="gender" style="border-radius: 25rem;" required>
-                      <option value="L">Laki-Laki</option>
-                      <option value="P">Perempuan</option>
+                    <select class="form-control form-control" id="gender" name="gender" name="gender" style="border-radius: 25rem;" >
+                      <option value="L"{{(old('gender') == 'L')? 'selected' : ''}}>Laki-Laki</option>
+                      <option value="P"{{(old('gender') == 'P')? 'selected' : ''}}>Perempuan</option>
                     </select>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group {{$errors->has('alamat')? '' : ''}}">
                     <label for="exampleFormControlTextarea1">Alamat</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="alamat" rows="3" required></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="alamat" rows="3" value="{{old('nama')}}"></textarea>
+                    @if($errors->has('alamat'))
+                      <span class="help-block font-weight-bold text-danger">{{$errors->first('alamat')}}</span>
+                    @endif
                   </div>
-                  <div class="form-group">
+                  <div class="form-group {{$errors->has('alamat')? '' : ''}}">
                     <label for="exampleFormControlInput1">Email</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" name="email" style="border-radius: 25rem;" required>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" name="email" style="border-radius: 25rem;" value="{{old('email')}}">
+                    @if($errors->has('email'))
+                      <span class="help-block font-weight-bold text-danger">{{$errors->first('email')}}</span>
+                    @endif
                   </div>
-                  <div class="form-group">
+                  <div class="form-group {{$errors->has('password')? '' : ''}}">
                     <label for="exampleFormControlInput1">Password</label>
-                    <input type="Password" class="form-control" id="exampleFormControlInput1" name="password" style="border-radius: 25rem;" required>
+                    <input type="Password" class="form-control" id="exampleFormControlInput1" name="password" style="border-radius: 25rem;">
+                    @if($errors->has('password'))
+                      <span class="help-block font-weight-bold text-danger">{{$errors->first('password')}}</span>
+                    @endif
                   </div>
-
-                  <!-- <div class="form-label-group">
-                  <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                  <label for="inputEmail">Email address</label>
-                  </div>
-
-                  <div class="form-label-group">
-                  <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                  <label for="inputPassword">Password</label>
-                  </div> -->
-
-                  <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Daftar</button>
+                  <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2 mt-4" type="submit">Daftar</button>
                   <div class="text-center">
                   <a class="small" href="/">Sudah punya Aku? Login</a></div>
                 </form>

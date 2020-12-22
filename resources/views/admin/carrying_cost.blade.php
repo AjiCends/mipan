@@ -98,9 +98,6 @@
       @endforeach
     </div>
 
-
-
-
     @endsection
   </body>
 </html>
@@ -116,8 +113,9 @@ $(document).ready(function(){
  function dynamic_field(number)
  {
   html = '<tr>';
-        html += '<td><input type="text" name="kegiatan[]" class="form-control" /></td>';
-        html += '<td><input type="text" name="ongkos[]" class="form-control" /></td>';
+        html += ' <td><input type="text" name="kegiatan[]" class="form-control" required></td>';
+
+        html += '<td><input type="text" name="ongkos[]" class="form-control" required></td>';
         if(number > 1)
         {
             html += '<td><button type="button" name="remove" id="remove" class="btn btn-danger remove">Remove</button></td></tr>';
